@@ -251,6 +251,7 @@ PickPointsDialog::PickPointsDialog(EditPickPointsPlugin *plugin,
 	connect(ui.showNormalCheckBox, SIGNAL(clicked()), this, SLOT(redrawPoints()));
 	connect(ui.pinRadioButton, SIGNAL(clicked()), this, SLOT(redrawPoints()));
 	connect(ui.lineRadioButton, SIGNAL(clicked()), this, SLOT(redrawPoints()));
+
 }
 
 PickPointsDialog::~PickPointsDialog()
@@ -903,4 +904,17 @@ void PickPointsDialog::undo()
 		
 		redrawPoints();
 	}
+}
+
+//eecs481
+void PickPointsDialog::on_calculateDistance_clicked()
+{
+    PickedPoints* pickedPoints = getPickedPoints();
+    std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
+    double distance = 0;
+    if (getActivatedPoints->size() == 2)
+    {
+        distance = Distance(getActivatedPoints->at(0),getActivatedPoints->at(1));
+    }
+    ui.showDistance->setText(QString::number(distance));
 }

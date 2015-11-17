@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>563</width>
-    <height>559</height>
+    <width>671</width>
+    <height>536</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,45 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="5" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="renamePointButton">
+          <property name="text">
+           <string>Rename Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removePointButton">
+          <property name="text">
+           <string>Remove Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="clearPointButton">
+          <property name="text">
+           <string>Clear Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeAllPointsButton">
+          <property name="text">
+           <string>Remove All Points</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="undoButton">
+          <property name="text">
+           <string>Undo last move</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
       <item row="0" column="0">
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
@@ -106,46 +145,7 @@
         </column>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QPushButton" name="renamePointButton">
-          <property name="text">
-           <string>Rename Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removePointButton">
-          <property name="text">
-           <string>Remove Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="clearPointButton">
-          <property name="text">
-           <string>Clear Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removeAllPointsButton">
-          <property name="text">
-           <string>Remove All Points</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="undoButton">
-          <property name="text">
-           <string>Undo last move</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="3" column="0" colspan="2">
+      <item row="7" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
          <string>Template Controls</string>
@@ -244,7 +244,7 @@
         </layout>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2">
+      <item row="8" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_3">
         <property name="title">
          <string>Normal Options</string>
@@ -286,6 +286,40 @@
          </item>
         </layout>
        </widget>
+      </item>
+      <item row="6" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="distanceLabel">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>93</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Distance:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="showDistance">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="calculateDistance">
+          <property name="text">
+           <string>Calculate Distance</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>

@@ -250,6 +250,10 @@ private slots:
 	
 	//undo the last move
 	void undo();
+
+    //eecs481
+    //void calculateDistanceCallback();
+    void on_calculateDistance_clicked();
 };
 
 //because QT is really dumb and TreeWidgetItems can recieve signals
