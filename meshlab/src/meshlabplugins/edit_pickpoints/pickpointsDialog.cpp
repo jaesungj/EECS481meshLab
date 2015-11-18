@@ -39,6 +39,10 @@
 #include <vcg/space/index/grid_static_ptr.h>
 #include <vcg/complex/algorithms/closest.h>
 
+#include <fstream>
+#include <iostream>
+#include <string>
+
 using namespace vcg;
 
 class GetClosestFace
@@ -907,6 +911,7 @@ void PickPointsDialog::undo()
 }
 
 //eecs481
+
 void PickPointsDialog::on_calculateDistance_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
@@ -915,6 +920,22 @@ void PickPointsDialog::on_calculateDistance_clicked()
     if (getActivatedPoints->size() == 2)
     {
         distance = Distance(getActivatedPoints->at(0),getActivatedPoints->at(1));
+        std::ofstream outfile("metrics.txt", std::ios::app);
+
+        std::vector<PickedPoint*>* pointSet = pickedPoints->getPickedPointVector();
+        std::vector<PickedPoint*> activatedPointSet;
+        for (int i = 0; i < pointSet->size(); i++)
+        {
+            if(pointSet->at(i)->present)
+                activatedPointSet.push_back(pointSet->at(i));
+        }
+        std::string name1 = activatedPointSet.at(0)->name.toStdString();
+        std::string name2 = activatedPointSet.at(1)->name.toStdString();
+        outfile<<"Distance from point "<<name1<<" to "<<name2<<": "<<distance<<std::endl;
+        outfile.close();
+    }else
+    {
+        QMessageBox::information(this,  "MeshLab", "Please pick up exactly two points!",QMessageBox::Ok);
     }
     ui.showDistance->setText(QString::number(distance));
 }
