@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'editpickpoints.h'
 **
-** Created: Tue Nov 17 15:14:44 2015
+** Created: Sat Dec 5 18:19:55 2015
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

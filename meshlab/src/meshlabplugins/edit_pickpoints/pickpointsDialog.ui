@@ -23,7 +23,89 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="5" column="0" colspan="2">
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="maximumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Mode: </string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="pickPointModeRadioButton">
+           <property name="maximumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Pick Point</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="Direction">
+        <property name="text">
+         <string>Right click on model to pick two points and press calculate distance 
+to measure distance bewteen the two points</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="title">
+         <string>Normal Options</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <widget class="QCheckBox" name="showNormalCheckBox">
+           <property name="text">
+            <string>Show Normal?</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Draw as a:  </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="pinRadioButton">
+           <property name="text">
+            <string>Pin</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="lineRadioButton">
+           <property name="text">
+            <string>Line</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
        <layout class="QHBoxLayout" name="horizontalLayout_3">
         <item>
          <widget class="QPushButton" name="renamePointButton">
@@ -36,13 +118,6 @@
          <widget class="QPushButton" name="removePointButton">
           <property name="text">
            <string>Remove Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="clearPointButton">
-          <property name="text">
-           <string>Clear Point</string>
           </property>
          </widget>
         </item>
@@ -62,43 +137,50 @@
         </item>
        </layout>
       </item>
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="groupBox">
-        <property name="title">
-         <string>Mode: </string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QRadioButton" name="pickPointModeRadioButton">
-           <property name="text">
-            <string>Pick Point</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="movePointRadioButton">
-           <property name="text">
-            <string>Move Point</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="selectPointRadioButton">
-           <property name="text">
-            <string>Select Point</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+      <item row="7" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="distanceLabel">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>93</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Distance:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextBrowser" name="showDistance">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>30</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="calculateDistance">
+          <property name="text">
+           <string>Calculate Distance</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="0" column="1">
+      <item row="1" column="1">
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
          <widget class="QPushButton" name="loadPointsButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Load Points From File</string>
           </property>
@@ -106,6 +188,12 @@
         </item>
         <item>
          <widget class="QPushButton" name="saveButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
            <string>Save</string>
           </property>
@@ -113,7 +201,7 @@
         </item>
        </layout>
       </item>
-      <item row="1" column="0" colspan="2">
+      <item row="2" column="0" colspan="2">
        <widget class="QTreeWidget" name="pickedPointsTreeWidget">
         <property name="columnCount">
          <number>5</number>
@@ -145,8 +233,22 @@
         </column>
        </widget>
       </item>
-      <item row="7" column="0" colspan="2">
+      <item row="8" column="0" colspan="2">
        <widget class="QGroupBox" name="groupBox_2">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+         </font>
+        </property>
         <property name="title">
          <string>Template Controls</string>
         </property>
@@ -161,30 +263,9 @@
          <item row="1" column="0" colspan="2">
           <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
-            <widget class="QPushButton" name="saveTemplateButton">
-             <property name="text">
-              <string>Save</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="loadTemplateButton">
-             <property name="text">
-              <string>Load</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="clearTemplateButton">
              <property name="text">
               <string>Clear</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="addPointToTemplateButton">
-             <property name="text">
-              <string>Add Point</string>
              </property>
             </widget>
            </item>
@@ -243,83 +324,6 @@
          </item>
         </layout>
        </widget>
-      </item>
-      <item row="8" column="0" colspan="2">
-       <widget class="QGroupBox" name="groupBox_3">
-        <property name="title">
-         <string>Normal Options</string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <item>
-          <widget class="QCheckBox" name="showNormalCheckBox">
-           <property name="text">
-            <string>Show Normal?</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Draw as a:  </string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="pinRadioButton">
-           <property name="text">
-            <string>Pin</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="lineRadioButton">
-           <property name="text">
-            <string>Line</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout_6">
-        <item>
-         <widget class="QLabel" name="distanceLabel">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>93</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Distance:</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QTextBrowser" name="showDistance">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>30</height>
-           </size>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="calculateDistance">
-          <property name="text">
-           <string>Calculate Distance</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
      </layout>
     </widget>

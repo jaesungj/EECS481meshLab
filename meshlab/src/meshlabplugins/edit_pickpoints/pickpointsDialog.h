@@ -201,7 +201,7 @@ private:
 	//variables needed for undo
 	PickedPointTreeWidgetItem *lastPointToMove;
 	vcg::Point3f lastPointPosition;
-	vcg::Point3f lastPointNormal;
+    vcg::Point3f lastPointNormal;
 	bool recordPointForUndo;
 	
 	QString templateWorkingDirectory;
@@ -254,6 +254,9 @@ private slots:
     //eecs481
     //void calculateDistanceCallback();
     void on_calculateDistance_clicked();
+    void on_pickPointModeRadioButton_clicked();
+    void on_movePointRadioButton_clicked();
+    void on_selectPointRadioButton_clicked();
 };
 
 //because QT is really dumb and TreeWidgetItems can recieve signals

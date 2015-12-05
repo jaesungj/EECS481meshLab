@@ -178,13 +178,17 @@ void EditAlignPlugin::setBaseMesh()
 
 
 
-Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, float threshold) {
+Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, float x, float y, float z) {
     Point3f result = ref;
+    float nonCompareValue = 50;
+    float xbounds = x;
+    float ybounds = y;
+    float zbounds = z;
     for(CMeshO::VertexIterator vi = mm->cm.vert.begin(); vi != mm->cm.vert.end(); vi++) {
         Point3f curr = (*vi).P();
-        if (((curr[0] >= (ref[0] - threshold)) && (curr[0] <= (ref[0] + threshold))) && 
-            ((curr[1] >= (ref[1] - threshold)) && (curr[1] <= (ref[1] + threshold))) && 
-            ((curr[2] >= (ref[2] - threshold)) && (curr[2] <= (ref[2] + threshold)))) {
+        if (((curr[0] >= (ref[0] - xbounds)) && (curr[0] <= (ref[0] + xbounds))) &&
+            ((curr[1] >= (ref[1] - ybounds)) && (curr[1] <= (ref[1] + ybounds))) &&
+            ((curr[2] >= (ref[2] - zbounds)) && (curr[2] <= (ref[2] + zbounds)))){
             if (isMax) {
                 if (curr[axis] > result[axis]) {
                     result = curr;
@@ -205,7 +209,9 @@ Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, floa
 void EditAlignPlugin::glueByPicking()
 {
 
-    float threshold = 5.0f;
+    float xbound = 250;
+    float ybound = 82;
+    float zbound = 68;
     if(meshTree.gluedNum()<1)
     {
         QMessageBox::warning(0,"Align tool", "Point based aligning requires at least one glued  mesh");
@@ -232,36 +238,37 @@ void EditAlignPlugin::glueByPicking()
         return;
     }
 
-    Point3f maxY1 = findLocalExtrema(md->mm(),freePnt[0], 1, true, threshold); 
-    std::cout << "min X is: " << (freePnt[0][0] - threshold) << " and max X is: " << (freePnt[0][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (freePnt[0][1] - threshold) << " and max Y is: " << (freePnt[0][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (freePnt[0][2] - threshold) << " and max Z is: " << (freePnt[0][2] + threshold) << std::endl;
+    Point3f maxY1 = findLocalExtrema(md->mm(),freePnt[0], 1, true, xbound, ybound, zbound);
     std::cout << "old maxY1 is: " << freePnt[0][0] << ", " << freePnt[0][1] << ", " <<  freePnt[0][2] << ", " << " new maxY1 is: " << maxY1[0] << ", " << maxY1[1] << ", " << maxY1[2] << std::endl;
-    Point3f maxY2 = findLocalExtrema(md->mm(),gluedPnt[0], 1, true, threshold); 
-    std::cout << "min X is: " << (gluedPnt[0][0] - threshold) << " and max X is: " << (gluedPnt[0][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (gluedPnt[0][1] - threshold) << " and max Y is: " << (gluedPnt[0][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (gluedPnt[0][2] - threshold) << " and max Z is: " << (gluedPnt[0][2] + threshold) << std::endl;
-    std::cout << "old maxY2 is: "<< gluedPnt[0][0] << " " << gluedPnt[0][1]<< " "  << gluedPnt[0][2] << " new maxY2 is: " << maxY2[0]  << " " << maxY2[1]  << " " <<maxY2[2] << std::endl;    
-    Point3f minY1 = findLocalExtrema(md->mm(),freePnt[1], 1, false, threshold); 
-    std::cout << "min X is: " << (freePnt[1][0] - threshold) << " and max X is: " << (freePnt[1][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (freePnt[1][1] - threshold) << " and max Y is: " << (freePnt[1][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (freePnt[1][2] - threshold) << " and max Z is: " << (freePnt[1][2] + threshold) << std::endl;
+    std::cout << "min X is: " << (freePnt[0][0] - xbound) << " and max X is: " << (freePnt[0][0] + xbound) << std::endl;
+     std::cout << "min Y is: " << (freePnt[0][1] - ybound) << " and max Y is: " << (freePnt[0][1] + ybound) << std::endl;
+     std::cout << "min Z is: " << (freePnt[0][2] - zbound) << " and max Z is: " << (freePnt[0][2] + zbound) << std::endl;
+
+    Point3f maxY2 = findLocalExtrema(md->mm(),gluedPnt[0], 1, true, xbound, ybound, zbound);
+   std::cout << "old maxY2 is: "<< gluedPnt[0][0] << " " << gluedPnt[0][1]<< " "  << gluedPnt[0][2] << " new maxY2 is: " << maxY2[0]  << " " << maxY2[1]  << " " <<maxY2[2] << std::endl;
+   std::cout << "min X is: " << (gluedPnt[0][0] - xbound) << " and max X is: " << (gluedPnt[0][0] + xbound) << std::endl;
+   std::cout << "min Y is: " << (gluedPnt[0][1] - ybound) << " and max Y is: " << (gluedPnt[0][1] + ybound) << std::endl;
+   std::cout << "min Z is: " << (gluedPnt[0][2] - zbound) << " and max Z is: " << (gluedPnt[0][2] + zbound) << std::endl;
+   Point3f minY1 = findLocalExtrema(md->mm(),freePnt[1], 1, false, xbound, ybound, zbound);
     std::cout << "old minY1 is: " << freePnt[1][0]  <<" "  <<freePnt[1][1] << " " <<  freePnt[1][2]  << " new minY1 is: " << minY1[0] << " " << minY1[1] << " " <<minY1[2] << " " << std::endl;
-    Point3f minY2 = findLocalExtrema(md->mm(),gluedPnt[1], 1, false, threshold); 
+    std::cout << "min X is: " << (freePnt[1][0] - xbound) << " and max X is: " << (freePnt[1][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (freePnt[1][1] - ybound) << " and max Y is: " << (freePnt[1][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (freePnt[1][2] - zbound) << " and max Z is: " << (freePnt[1][2] + zbound) << std::endl;
+    Point3f minY2 = findLocalExtrema(md->mm(),gluedPnt[1], 1, false, xbound, ybound, zbound);
     std::cout << "old minY2 is: " << gluedPnt[1][0]<< " " << gluedPnt[1][1] << " " << gluedPnt[1][2] << " new minY2 is: " << minY2[0] << " " << minY2[1] << " " << minY2[2] <<" "  << std::endl;
-    std::cout << "min X is: " << (gluedPnt[1][0] - threshold) << " and max X is: " << (gluedPnt[1][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (gluedPnt[1][1] - threshold) << " and max Y is: " << (gluedPnt[1][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (gluedPnt[1][2] - threshold) << " and max Z is: " << (gluedPnt[1][2] + threshold) << std::endl;
-    Point3f minX1 = findLocalExtrema(md->mm(),freePnt[2], 0, false, 3*threshold); 
+    std::cout << "min X is: " << (gluedPnt[1][0] - xbound) << " and max X is: " << (gluedPnt[1][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (gluedPnt[1][1] - ybound) << " and max Y is: " << (gluedPnt[1][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (gluedPnt[1][2] - zbound) << " and max Z is: " << (gluedPnt[1][2] + zbound) << std::endl;
+    Point3f minX1 = findLocalExtrema(md->mm(),freePnt[2], 0, false, xbound, ybound, zbound);
     std::cout << "old minX1 is: " << freePnt[2][0]<< " " << freePnt[2][1] << " " << freePnt[2][2] << " new minX1 is: " << minX1[0] <<" " << minX1[1] <<  " " << minX1[2] << std::endl;
-    std::cout << "min X is: " << (freePnt[2][0] - threshold) << " and max X is: " << (freePnt[2][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (freePnt[2][1] - threshold) << " and max Y is: " << (freePnt[2][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (freePnt[2][2] - threshold) << " and max Z is: " << (freePnt[2][2] + threshold) << std::endl;
-    Point3f minX2 = findLocalExtrema(md->mm(),gluedPnt[2], 0, false, 3*threshold);
+    std::cout << "min X is: " << (freePnt[2][0] - xbound) << " and max X is: " << (freePnt[2][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (freePnt[2][1] - ybound) << " and max Y is: " << (freePnt[2][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (freePnt[2][2] - zbound) << " and max Z is: " << (freePnt[2][2] + zbound) << std::endl;
+    Point3f minX2 = findLocalExtrema(md->mm(),gluedPnt[2], 0, false, xbound, ybound, zbound);
     std::cout << "old minX2 is: " << gluedPnt[2][0] << " " << gluedPnt[2][1] <<" " << gluedPnt[2][2] << " new minX2 is: " << minX2[0] << " " << minX2[1] << " " <<minX2[2] << " " << std::endl;
-    std::cout << "min X is: " << (gluedPnt[2][0] - threshold) << " and max X is: " << (gluedPnt[2][0] + threshold) << std::endl;
-    std::cout << "min Y is: " << (gluedPnt[2][1] - threshold) << " and max Y is: " << (gluedPnt[2][1] + threshold) << std::endl;
-    std::cout << "min Z is: " << (gluedPnt[2][2] - threshold) << " and max Z is: " << (gluedPnt[2][2] + threshold) << std::endl;
+    std::cout << "min X is: " << (gluedPnt[2][0] - xbound) << " and max X is: " << (gluedPnt[2][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (gluedPnt[2][1] - ybound) << " and max Y is: " << (gluedPnt[2][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (gluedPnt[2][2] - zbound) << " and max Z is: " << (gluedPnt[2][2] + zbound) << std::endl;
 
     freePnt =  std::vector<vcg::Point3f>();
     freePnt.push_back(maxY1);

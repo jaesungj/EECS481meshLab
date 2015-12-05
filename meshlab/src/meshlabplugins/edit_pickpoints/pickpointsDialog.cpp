@@ -28,11 +28,10 @@
 
 #include <QFileDialog>
 #include <math.h>
-
 #include <common/meshmodel.h>
 #include <meshlab/stdpardialog.h>
 #include <meshlab/glarea.h>
-
+#include <string>
 #include "editpickpoints.h"
 #include "pickpointsDialog.h"
 
@@ -237,17 +236,17 @@ PickPointsDialog::PickPointsDialog(EditPickPointsPlugin *plugin,
 	connect(ui.pickedPointsTreeWidget, SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)),
 			this, SLOT(renameHighlightedPoint() ) );
 	
-	connect(ui.clearPointButton, SIGNAL(clicked()), this, SLOT(clearHighlightedPoint()));
+    //connect(ui.clearPointButton, SIGNAL(clicked()), this, SLOT(clearHighlightedPoint()));
 	connect(ui.pickPointModeRadioButton, SIGNAL(toggled(bool)), this, SLOT(togglePickMode(bool)) );
-	connect(ui.movePointRadioButton, SIGNAL(toggled(bool)), this, SLOT(toggleMoveMode(bool)) );
-	connect(ui.selectPointRadioButton, SIGNAL(toggled(bool)), this, SLOT(toggleSelectMode(bool)) );
-	connect(ui.saveButton, SIGNAL(clicked()), this, SLOT(savePointsToFile()));
-	connect(ui.loadPointsButton, SIGNAL(clicked()), this, SLOT(askUserForFileAndLoadPoints()));
+    //connect(ui.movePointRadioButton, SIGNAL(toggled(bool)), this, SLOT(toggleMoveMode(bool)) );
+    //connect(ui.selectPointRadioButton, SIGNAL(toggled(bool)), this, SLOT(toggleSelectMode(bool)) );
+    connect(ui.saveButton, SIGNAL(clicked()), this, SLOT(savePointsToFile()));
+    connect(ui.loadPointsButton, SIGNAL(clicked()), this, SLOT(askUserForFileAndLoadPoints()));
 	connect(ui.removeAllPointsButton, SIGNAL(clicked()), this, SLOT(clearPointsButtonClicked()));
-	connect(ui.saveTemplateButton, SIGNAL(clicked()), this, SLOT(savePointTemplate()));
-	connect(ui.loadTemplateButton, SIGNAL(clicked()), this, SLOT(askUserForFileAndloadTemplate()));
-	connect(ui.clearTemplateButton, SIGNAL(clicked()), this, SLOT(clearTemplateButtonClicked()) );
-	connect(ui.addPointToTemplateButton, SIGNAL(clicked()), this, SLOT(addPointToTemplate()) );
+    //connect(ui.saveTemplateButton, SIGNAL(clicked()), this, SLOT(savePointTemplate()));
+    //connect(ui.loadTemplateButton, SIGNAL(clicked()), this, SLOT(askUserForFileAndloadTemplate()));
+    //connect(ui.clearTemplateButton, SIGNAL(clicked()), this, SLOT(clearTemplateButtonClicked()) );
+    //connect(ui.addPointToTemplateButton, SIGNAL(clicked()), this, SLOT(addPointToTemplate()) );
 	connect(ui.undoButton, SIGNAL(clicked()), this, SLOT(undo()));
 	connect(ui.pickedPointsTreeWidget, SIGNAL(itemClicked(QTreeWidgetItem *, int)), this, 
 			SLOT(redrawPoints()) );
@@ -700,7 +699,7 @@ void PickPointsDialog::togglePickMode(bool checked){
 	}
 }
 
-void PickPointsDialog::toggleMoveMode(bool checked)
+/*void PickPointsDialog::toggleMoveMode(bool checked)
 {
 	if(checked)
 	{
@@ -711,9 +710,9 @@ void PickPointsDialog::toggleMoveMode(bool checked)
 		//make sure the radio button reflects this change
 		ui.movePointRadioButton->setChecked(true);
 	}
-}
+}*/
 
-void PickPointsDialog::toggleSelectMode(bool checked)
+/*void PickPointsDialog::toggleSelectMode(bool checked)
 {
 	if(checked)
 	{
@@ -721,10 +720,10 @@ void PickPointsDialog::toggleSelectMode(bool checked)
 		
 		//qDebug() << "select mode";
 		currentMode = SELECT_POINT;
-		//make radio button reflect the change
-		ui.selectPointRadioButton->setChecked(true);
+        //make radio button reflect the change
+        ui.selectPointRadioButton->setChecked(true);
 	}	
-}
+}*/
 
 PickedPoints * PickPointsDialog::getPickedPoints()
 {
@@ -822,14 +821,14 @@ void PickPointsDialog::savePointTemplate(){
 	//default if for the filename to be that of the default template
 	QString filename = PickPointsTemplate::getDefaultTemplateFileName();
 
-	if(!ui.defaultTemplateCheckBox->isChecked())
+    if(!ui.defaultTemplateCheckBox->isChecked())
 	{
 		filename = QFileDialog::getSaveFileName(this, tr("Save File"), templateWorkingDirectory, "*"+PickPointsTemplate::fileExtension);
 		
 		//if the user pushes cancel dont do anything
 		if("" == filename) return;
 		else templateWorkingDirectory = filename;
-	}
+    }
 	
 	
 	//add the extension if the user forgot it
@@ -839,11 +838,11 @@ void PickPointsDialog::savePointTemplate(){
 	PickPointsTemplate::save(filename, &pointNameVector);
 	setTemplateName(QFileInfo(filename).fileName());
 		
-	if(ui.defaultTemplateCheckBox->isChecked())
+    if(ui.defaultTemplateCheckBox->isChecked())
 	{
 		QMessageBox::information(this,  "MeshLab", "Default Template Saved!",
 		               		QMessageBox::Ok);
-	}
+    }
 }
 
 void PickPointsDialog::askUserForFileAndloadTemplate()
@@ -898,6 +897,9 @@ void PickPointsDialog::undo()
 	if(NULL != lastPointToMove)
 	{		
 		vcg::Point3f tempPoint = lastPointToMove->getPoint();
+        std::cout << tempPoint.X() <<endl;
+        std::cout << tempPoint.Y() << endl;
+        std::cout << tempPoint.Z() << endl;
 		vcg::Point3f tempNormal = lastPointToMove->getNormal();
 
 		lastPointToMove->setPointAndNormal(lastPointPosition, lastPointNormal);
@@ -917,6 +919,9 @@ void PickPointsDialog::on_calculateDistance_clicked()
     PickedPoints* pickedPoints = getPickedPoints();
     std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
     double distance = 0;
+    int counter = 0;
+
+    
     if (getActivatedPoints->size() == 2)
     {
         distance = Distance(getActivatedPoints->at(0),getActivatedPoints->at(1));
@@ -939,3 +944,19 @@ void PickPointsDialog::on_calculateDistance_clicked()
     }
     ui.showDistance->setText(QString::number(distance));
 }
+
+void PickPointsDialog::on_pickPointModeRadioButton_clicked()
+{
+    ui.Direction->setText("Right click on model to pick two points and press calcualte distance to measure distance bewteen the two points");
+}
+
+void PickPointsDialog::on_movePointRadioButton_clicked()
+{
+    ui.Direction->setText("Right click on model to move one point to anohter");
+}
+
+void PickPointsDialog::on_selectPointRadioButton_clicked()
+{
+    ui.Direction->setText("Right click on model to select point");
+}
+

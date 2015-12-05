@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pickpointsDialog.h'
 **
-** Created: Tue Nov 17 15:14:46 2015
+** Created: Sat Dec 5 18:19:58 2015
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_PickPointsDialog[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      16,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -47,6 +47,9 @@ static const uint qt_meta_data_PickPointsDialog[] = {
      337,   17,   17,   17, 0x08,
      358,   17,   17,   17, 0x08,
      365,   17,   17,   17, 0x08,
+     396,   17,   17,   17, 0x08,
+     434,   17,   17,   17, 0x08,
+     468,   17,   17,   17, 0x08,
 
        0        // eod
 };
@@ -64,6 +67,9 @@ static const char qt_meta_stringdata_PickPointsDialog[] = {
     "clearTemplateButtonClicked()\0"
     "addPointToTemplate()\0undo()\0"
     "on_calculateDistance_clicked()\0"
+    "on_pickPointModeRadioButton_clicked()\0"
+    "on_movePointRadioButton_clicked()\0"
+    "on_selectPointRadioButton_clicked()\0"
 };
 
 void PickPointsDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -88,6 +94,9 @@ void PickPointsDialog::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         case 13: _t->addPointToTemplate(); break;
         case 14: _t->undo(); break;
         case 15: _t->on_calculateDistance_clicked(); break;
+        case 16: _t->on_pickPointModeRadioButton_clicked(); break;
+        case 17: _t->on_movePointRadioButton_clicked(); break;
+        case 18: _t->on_selectPointRadioButton_clicked(); break;
         default: ;
         }
     }
@@ -125,9 +134,9 @@ int PickPointsDialog::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 16)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 16;
+        _id -= 19;
     }
     return _id;
 }
