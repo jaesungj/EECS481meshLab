@@ -303,7 +303,7 @@ void EditPickPointsPlugin::drawPickedPoints(
 		//if the point has been set (it may not be if a template has been loaded)
 		if(item->isActive()){
 			Point3f point = item->getPoint();
-			glColor(Color4b::Blue);
+            glColor(Color4b::White);
       glLabel::render(painter,point, QString(item->getName()));
 
 			//draw the dot if we arnt showing the normal or showing the normal as a line

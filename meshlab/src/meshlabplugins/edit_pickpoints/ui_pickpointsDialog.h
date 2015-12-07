@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'pickpointsDialog.ui'
 **
-** Created: Sat Dec 5 18:19:36 2015
+** Created: Mon Dec 7 12:30:14 2015
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -148,6 +148,7 @@ public:
 
         undoButton = new QPushButton(frame);
         undoButton->setObjectName(QString::fromUtf8("undoButton"));
+        undoButton->setMaximumSize(QSize(0, 0));
 
         horizontalLayout_3->addWidget(undoButton);
 

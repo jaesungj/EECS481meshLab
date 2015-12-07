@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pickpointsDialog.h'
 **
-** Created: Sat Dec 5 18:19:58 2015
+** Created: Mon Dec 7 12:30:54 2015
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.1)
 **
 ** WARNING! All changes made in this file will be lost!

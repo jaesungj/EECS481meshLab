@@ -43,7 +43,7 @@
 #include <string>
 
 using namespace vcg;
-
+int pointCount = 0;
 class GetClosestFace
 {
 
@@ -100,8 +100,9 @@ PickedPointTreeWidgetItem::PickedPointTreeWidgetItem(
 		QString name, bool _active) : QTreeWidgetItem(1001)
 {
 	//name
+    name.setNum(pointCount);
 	setName(name);
-
+    pointCount++;
 	active = _active;
 	//would set the checkbox but qt doesnt allow a way to do this in the constructor
 	
@@ -215,7 +216,7 @@ PickPointsDialog::PickPointsDialog(EditPickPointsPlugin *plugin,
 	_glArea = 0;
 	
 	//start at 0
-	pointCounter = 0;
+    //pointCounter = 0;
 	
 	//start with no template
 	setTemplateName("");
@@ -292,10 +293,9 @@ void PickPointsDialog::addMoveSelectPoint(Point3f point, CMeshO::FaceType::Norma
 			}
 		} else {
 			//use a number as the default name
-			QString name;
-			name.setNum(pointCounter);
-			pointCounter++;
-	
+            QString name;
+            name.setNum(pointCount);
+
 			addTreeWidgetItemForPoint(point, name, faceNormal, true);
 		}
 	} else if(currentMode == MOVE_POINT)
@@ -450,7 +450,7 @@ void PickPointsDialog::clearPoints(bool clearOnlyXYZ){
 	} else {
 		pickedPointTreeWidgetItemVector.clear();
 		ui.pickedPointsTreeWidget->clear();
-		pointCounter = 0;
+        pointCount = 0;
 	}
 	
 	//draw without any points that may have been cleared
@@ -731,7 +731,7 @@ PickedPoints * PickPointsDialog::getPickedPoints()
 	//add all the points
 	for(int i = 0; i < pickedPointTreeWidgetItemVector.size(); i++){
 		PickedPointTreeWidgetItem *item =
-				pickedPointTreeWidgetItemVector.at(i);		
+                pickedPointTreeWidgetItemVector.at(i);
 		pickedPoints->addPoint(item->getName(), item->getPoint(), item->isActive());
 	}
 	

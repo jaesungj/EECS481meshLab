@@ -196,7 +196,7 @@ private:
 	GetClosestFace *getClosestFace;
 	
 	//basically just so we have a unique default name for new points that are picked
-	int pointCounter;
+    //int pointCounter;
 	
 	//variables needed for undo
 	PickedPointTreeWidgetItem *lastPointToMove;
