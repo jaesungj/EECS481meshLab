@@ -23,46 +23,45 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="1" column="0">
-       <widget class="QGroupBox" name="groupBox">
-        <property name="maximumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="title">
-         <string>Mode: </string>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QRadioButton" name="pickPointModeRadioButton">
-           <property name="maximumSize">
-            <size>
-             <width>0</width>
-             <height>0</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Pick Point</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+      <item row="6" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="renamePointButton">
+          <property name="text">
+           <string>Rename Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removePointButton">
+          <property name="text">
+           <string>Remove Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeAllPointsButton">
+          <property name="text">
+           <string>Remove All Points</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="undoButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Undo last move</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="Direction">
-        <property name="text">
-         <string>Right click on model to pick two points and press calculate distance 
-to measure distance bewteen the two points</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="0" colspan="2">
+      <item row="15" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_3">
         <property name="title">
          <string>Normal Options</string>
@@ -105,33 +104,31 @@ to measure distance bewteen the two points</string>
         </layout>
        </widget>
       </item>
-      <item row="6" column="0" colspan="2">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item row="1" column="2">
+       <layout class="QVBoxLayout" name="verticalLayout">
         <item>
-         <widget class="QPushButton" name="renamePointButton">
+         <widget class="QPushButton" name="loadPointsButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="text">
-           <string>Rename Point</string>
+           <string>Load Points From File</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="removePointButton">
-          <property name="text">
-           <string>Remove Point</string>
+         <widget class="QPushButton" name="saveButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removeAllPointsButton">
           <property name="text">
-           <string>Remove All Points</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="undoButton">
-          <property name="text">
-           <string>Undo last move</string>
+           <string>Save</string>
           </property>
          </widget>
         </item>
@@ -171,37 +168,38 @@ to measure distance bewteen the two points</string>
         </item>
        </layout>
       </item>
-      <item row="1" column="1">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QPushButton" name="loadPointsButton">
-          <property name="maximumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load Points From File</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="saveButton">
-          <property name="maximumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Save</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="maximumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="title">
+         <string>Mode: </string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QRadioButton" name="pickPointModeRadioButton">
+           <property name="maximumSize">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Pick Point</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </item>
-      <item row="2" column="0" colspan="2">
+      <item row="2" column="0" colspan="3">
        <widget class="QTreeWidget" name="pickedPointsTreeWidget">
         <property name="columnCount">
          <number>5</number>
@@ -233,7 +231,15 @@ to measure distance bewteen the two points</string>
         </column>
        </widget>
       </item>
-      <item row="8" column="0" colspan="2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="Direction">
+        <property name="text">
+         <string>Right click on model to pick two points and press calculate distance 
+to measure distance bewteen the two points</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_2">
         <property name="enabled">
          <bool>false</bool>
@@ -324,6 +330,43 @@ to measure distance bewteen the two points</string>
          </item>
         </layout>
        </widget>
+      </item>
+      <item row="12" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>93</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Circumference: </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="textEdit">
+          <property name="maximumSize">
+           <size>
+            <width>166215</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="layoutDirection">
+           <enum>Qt::LeftToRight</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="CalculateCirumference">
+          <property name="text">
+           <string>CalculateCirumference</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
