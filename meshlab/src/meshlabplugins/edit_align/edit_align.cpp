@@ -209,9 +209,9 @@ Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, floa
 void EditAlignPlugin::glueByPicking()
 {
 
-    float xbound = 250;
-    float ybound = 82;
-    float zbound = 68;
+    float xbound = 50;
+    float ybound = 50;
+    float zbound = 50;
     if(meshTree.gluedNum()<1)
     {
         QMessageBox::warning(0,"Align tool", "Point based aligning requires at least one glued  mesh");
@@ -245,10 +245,11 @@ void EditAlignPlugin::glueByPicking()
      std::cout << "min Z is: " << (freePnt[0][2] - zbound) << " and max Z is: " << (freePnt[0][2] + zbound) << std::endl;
 
     Point3f maxY2 = findLocalExtrema(md->mm(),gluedPnt[0], 1, true, xbound, ybound, zbound);
-   std::cout << "old maxY2 is: "<< gluedPnt[0][0] << " " << gluedPnt[0][1]<< " "  << gluedPnt[0][2] << " new maxY2 is: " << maxY2[0]  << " " << maxY2[1]  << " " <<maxY2[2] << std::endl;
-   std::cout << "min X is: " << (gluedPnt[0][0] - xbound) << " and max X is: " << (gluedPnt[0][0] + xbound) << std::endl;
-   std::cout << "min Y is: " << (gluedPnt[0][1] - ybound) << " and max Y is: " << (gluedPnt[0][1] + ybound) << std::endl;
-   std::cout << "min Z is: " << (gluedPnt[0][2] - zbound) << " and max Z is: " << (gluedPnt[0][2] + zbound) << std::endl;
+   std::cout << "old maxY2 is: "<< gluedPnt[0][0] << " " << gluedPnt[0][1]<< " "  << gluedPnt[0][2]
+             << " new maxY2 is: " << maxY2[0]  << " " << maxY2[1]  << " " <<maxY2[2] << std::endl;
+    std::cout << "min X is: " << (gluedPnt[0][0] - xbound) << " and max X is: " << (gluedPnt[0][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (gluedPnt[0][1] - ybound) << " and max Y is: " << (gluedPnt[0][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (gluedPnt[0][2] - zbound) << " and max Z is: " << (gluedPnt[0][2] + zbound) << std::endl;
    Point3f minY1 = findLocalExtrema(md->mm(),freePnt[1], 1, false, xbound, ybound, zbound);
     std::cout << "old minY1 is: " << freePnt[1][0]  <<" "  <<freePnt[1][1] << " " <<  freePnt[1][2]  << " new minY1 is: " << minY1[0] << " " << minY1[1] << " " <<minY1[2] << " " << std::endl;
     std::cout << "min X is: " << (freePnt[1][0] - xbound) << " and max X is: " << (freePnt[1][0] + xbound) << std::endl;
@@ -269,15 +270,27 @@ void EditAlignPlugin::glueByPicking()
     std::cout << "min X is: " << (gluedPnt[2][0] - xbound) << " and max X is: " << (gluedPnt[2][0] + xbound) << std::endl;
     std::cout << "min Y is: " << (gluedPnt[2][1] - ybound) << " and max Y is: " << (gluedPnt[2][1] + ybound) << std::endl;
     std::cout << "min Z is: " << (gluedPnt[2][2] - zbound) << " and max Z is: " << (gluedPnt[2][2] + zbound) << std::endl;
+    Point3f maxZ1 = findLocalExtrema(md->mm(),freePnt[3], 2, true, xbound, ybound, zbound);
+    std::cout << "old minZ1 is: " << freePnt[3][0]<< " " << freePnt[3][1] << " " << freePnt[3][2] << " new minX1 is: " << maxZ1[0] <<" " << maxZ1[1] <<  " " << maxZ1[2] << std::endl;
+    std::cout << "min X is: " << (freePnt[3][0] - xbound) << " and max X is: " << (freePnt[3][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (freePnt[3][1] - ybound) << " and max Y is: " << (freePnt[3][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (freePnt[3][2] - zbound) << " and max Z is: " << (freePnt[3][2] + zbound) << std::endl;
+    Point3f maxZ2 = findLocalExtrema(md->mm(),gluedPnt[3], 2, true, xbound, ybound, zbound);
+    std::cout << "old minZ1 is: " << gluedPnt[3][0]<< " " << gluedPnt[3][1] << " " << gluedPnt[3][2] << " new minX1 is: " << maxZ2[0] <<" " << maxZ2[1] <<  " " << maxZ2[2] << std::endl;
+    std::cout << "min X is: " << (gluedPnt[3][0] - xbound) << " and max X is: " << (gluedPnt[3][0] + xbound) << std::endl;
+    std::cout << "min Y is: " << (gluedPnt[3][1] - ybound) << " and max Y is: " << (gluedPnt[3][1] + ybound) << std::endl;
+    std::cout << "min Z is: " << (gluedPnt[3][2] - zbound) << " and max Z is: " << (gluedPnt[3][2] + zbound) << std::endl;
 
     freePnt =  std::vector<vcg::Point3f>();
     freePnt.push_back(maxY1);
     freePnt.push_back(minY1);
     freePnt.push_back(minX1);
+    freePnt.push_back(maxZ1);
     gluedPnt =  std::vector<vcg::Point3f>(); 
     gluedPnt.push_back(maxY2);
     gluedPnt.push_back(minY2);
     gluedPnt.push_back(minX2);
+    gluedPnt.push_back(maxZ2);
     Matrix44f res;
     if(dd->allowScalingCB->isChecked())
         ComputeSimilarityMatchMatrix(gluedPnt,freePnt,res);
