@@ -967,6 +967,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
     std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
+    std::vector<PickedPoint> circumPoints;
     int pointCount = 0;
     double circumference = 0;
     if(getActivatedPoints->size() >= 1){
@@ -993,6 +994,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
                         if (I1 == failure) {
                             I1 = p0 + (diffVec * (numerator / denominator));
                         } else if (I2 == failure) {
+
                             I2 = p0 + (diffVec * (numerator / denominator));
                         }
                     }
@@ -1004,31 +1006,27 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
 //                                 std::cout << "I2 " << I2.X() <<" " << I2.Y()<< " " <<  I2.Z()<< std::endl;
                 circumference += sqrt(pow(diffIntVec.X(),2) + pow(diffIntVec.Y(),2) + pow(diffIntVec.Z(),2));
 //                std::cout << diffIntVec.X() << " " << diffIntVec.Y() << " " << diffIntVec.Z() << std::endl;
-                PickedPoints points;
-                points.addPoint( QString::fromStdString("I1"), I1, true);
-                points.addPoint( QString::fromStdString("I2"), I2, true);
-                std::vector<PickedPoint*> * selectedPoints = points.getPickedPointVector();
-                PickedPoint * point = selectedPoints->at(0);
-                PickedPoint * point1 = selectedPoints->at(1);
-                CFaceO *face;
-                bool result = GLPickTri<CMeshO>::PickNearestFace(I1.X(),I1.Y(),
-                        meshModel->cm, face);
-                CFaceO *face1;
-                result = GLPickTri<CMeshO>::PickNearestFace(I1.X(),I1.Y(),
-                                                            meshModel->cm, face1);
-                std::cout << result << std::endl;
-                addMoveSelectPoint(point->point, face->N());
-                addMoveSelectPoint(point1->point, face1->N());
+
+                PickedPoint I1Point = PickedPoint(QString::fromStdString("newPoint"), I1, true);
+                PickedPoint I2Point = PickedPoint(QString::fromStdString("newPoint"), I2, true);
+                circumPoints.push_back(I1Point);
+                circumPoints.push_back(I2Point);
                 //addPoint(selectedPoints->at(0)->point,selectedPoints->at(0)->name, true);
                 //addPoint( selectedPoints->at(1)->point,selectedPoints->at(1)->name, true);
-            }
+          }
 
         }
 
     }
-   redrawPoints();
+    for(int i=0; i<circumPoints.size();i++){
+         addPoint(circumPoints[i].point,circumPoints[i].name,  true);
+    }
+    redrawPoints();
+   // drawPickedPoints(getPickedPointTreeWidgetItemVector(), meshModel->cm.bbox, painter);
 
-    ui.showCirumference->setText(QString::number(circumference));
+   // ui.showCirumference->setText(QString::number(circumference));
 
 
 }
+
+
