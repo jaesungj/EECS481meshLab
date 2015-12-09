@@ -257,6 +257,7 @@ private slots:
     void on_pickPointModeRadioButton_clicked();
     void on_movePointRadioButton_clicked();
     void on_selectPointRadioButton_clicked();
+    void on_CalculateCirumference_clicked();
 };
 
 //because QT is really dumb and TreeWidgetItems can recieve signals

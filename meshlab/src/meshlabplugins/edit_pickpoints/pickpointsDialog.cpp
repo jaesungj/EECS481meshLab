@@ -34,6 +34,8 @@
 #include <string>
 #include "editpickpoints.h"
 #include "pickpointsDialog.h"
+#include <wrap/gl/picking.h>
+#include <wrap/gl/pick.h>
 
 #include <vcg/space/index/grid_static_ptr.h>
 #include <vcg/complex/algorithms/closest.h>
@@ -960,3 +962,73 @@ void PickPointsDialog::on_selectPointRadioButton_clicked()
     ui.Direction->setText("Right click on model to select point");
 }
 
+
+void PickPointsDialog::on_CalculateCirumference_clicked()
+{
+    PickedPoints* pickedPoints = getPickedPoints();
+    std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
+    int pointCount = 0;
+    double circumference = 0;
+    if(getActivatedPoints->size() >= 1){
+        for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi += 3) {
+            Point3f pickedPoint = getActivatedPoints->back();
+
+            Point3f normal = Point3f(0, 0, 1);
+            Point3f random = Point3f(0, 0, pickedPoint.Z());
+            Point3f failure = Point3f(-10000000000, -10000000000, -10000000000);
+            Point3f I1 = failure;
+            Point3f I2 = failure;
+
+            //            std::cout << (*vi).P().X() <<" " << (*vi).P().Y()<< " " <<  (*vi).P().Z()<< std::endl;
+            for(int i = 0; i < 3; i++) {
+                Point3f p0 = (*(vi + (i%3))).P();
+//                 std::cout << p0.X() <<" " << p0.Y()<< " " <<  p0.Z()<< std::endl;
+                Point3f p1 = (*(vi + (i+1%3))).P();
+                Point3f diffVec = p1 - p0;
+                double denominator = normal.dot(diffVec);
+                if (denominator != 0) {
+                    Point3f randVec = random - p0;
+                    double numerator = normal.dot(randVec);
+                    if (abs(numerator / denominator) <= 1) {
+                        if (I1 == failure) {
+                            I1 = p0 + (diffVec * (numerator / denominator));
+                        } else if (I2 == failure) {
+                            I2 = p0 + (diffVec * (numerator / denominator));
+                        }
+                    }
+                }
+            }
+            if (I1 != failure and I2 != failure) {
+                Point3f diffIntVec = I2 - I1;
+//                                 std::cout << "I1 " << I1.X() <<" " << I1.Y()<< " " <<  I1.Z()<< std::endl;
+//                                 std::cout << "I2 " << I2.X() <<" " << I2.Y()<< " " <<  I2.Z()<< std::endl;
+                circumference += sqrt(pow(diffIntVec.X(),2) + pow(diffIntVec.Y(),2) + pow(diffIntVec.Z(),2));
+//                std::cout << diffIntVec.X() << " " << diffIntVec.Y() << " " << diffIntVec.Z() << std::endl;
+                PickedPoints points;
+                points.addPoint( QString::fromStdString("I1"), I1, true);
+                points.addPoint( QString::fromStdString("I2"), I2, true);
+                std::vector<PickedPoint*> * selectedPoints = points.getPickedPointVector();
+                PickedPoint * point = selectedPoints->at(0);
+                PickedPoint * point1 = selectedPoints->at(1);
+                CFaceO *face;
+                bool result = GLPickTri<CMeshO>::PickNearestFace(I1.X(),I1.Y(),
+                        meshModel->cm, face);
+                CFaceO *face1;
+                result = GLPickTri<CMeshO>::PickNearestFace(I1.X(),I1.Y(),
+                                                            meshModel->cm, face1);
+                std::cout << result << std::endl;
+                addMoveSelectPoint(point->point, face->N());
+                addMoveSelectPoint(point1->point, face1->N());
+                //addPoint(selectedPoints->at(0)->point,selectedPoints->at(0)->name, true);
+                //addPoint( selectedPoints->at(1)->point,selectedPoints->at(1)->name, true);
+            }
+
+        }
+
+    }
+   redrawPoints();
+
+    ui.showCirumference->setText(QString::number(circumference));
+
+
+}

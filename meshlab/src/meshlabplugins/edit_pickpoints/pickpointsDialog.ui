@@ -347,7 +347,7 @@ to measure distance bewteen the two points</string>
          </widget>
         </item>
         <item>
-         <widget class="QTextEdit" name="textEdit">
+         <widget class="QTextEdit" name="showCirumference">
           <property name="maximumSize">
            <size>
             <width>166215</width>
@@ -362,7 +362,7 @@ to measure distance bewteen the two points</string>
         <item>
          <widget class="QPushButton" name="CalculateCirumference">
           <property name="text">
-           <string>CalculateCirumference</string>
+           <string>Calculate Cirumference</string>
           </property>
          </widget>
         </item>
