@@ -116,6 +116,7 @@ void EditPickPointsPlugin::Decorate(MeshModel &mm, GLArea *gla, QPainter *painte
 		} else
 		{
 			CFaceO::NormalType faceNormal = face->N();
+
 			//qDebug() << "found face normal: " << faceNormal[0] << faceNormal[1] << faceNormal[2];
 			
 			//if we didnt find a face then dont add the point because the user was probably 

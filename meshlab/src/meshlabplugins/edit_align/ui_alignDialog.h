@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'alignDialog.ui'
 **
-** Created: Mon Nov 23 16:57:11 2015
+** Created: Sat Dec 12 18:10:10 2015
 **      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -19,7 +19,6 @@
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QPushButton>
-#include <QtGui/QSpacerItem>
 #include <QtGui/QTextEdit>
 #include <QtGui/QTreeWidget>
 #include <QtGui/QVBoxLayout>
@@ -33,22 +32,21 @@ public:
     QVBoxLayout *verticalLayout_3;
     QFrame *frame;
     QVBoxLayout *verticalLayout_4;
+    QPushButton *pushButton;
     QTreeWidget *alignTreeWidget;
-    QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout_2;
     QPushButton *glueHereButton;
     QPushButton *glueHereAllButton;
     QPushButton *manualAlignButton;
     QPushButton *pointBasedAlignButton;
     QPushButton *baseMeshButton;
-    QSpacerItem *spacerItem;
     QPushButton *recalcButton;
     QPushButton *icpButton;
+    QHBoxLayout *horizontalLayout;
     QVBoxLayout *verticalLayout;
     QPushButton *icpParamButton;
     QPushButton *icpParamCurrentButton;
     QPushButton *meshTreeParamButton;
-    QSpacerItem *spacerItem1;
     QPushButton *badArcButton;
     QPushButton *hideRevealButton;
     QCheckBox *falseColorCB;
@@ -68,6 +66,12 @@ public:
         frame->setFrameShadow(QFrame::Raised);
         verticalLayout_4 = new QVBoxLayout(frame);
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        pushButton = new QPushButton(frame);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setMaximumSize(QSize(0, 0));
+
+        verticalLayout_4->addWidget(pushButton);
+
         alignTreeWidget = new QTreeWidget(frame);
         alignTreeWidget->setObjectName(QString::fromUtf8("alignTreeWidget"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -83,8 +87,6 @@ public:
 
         verticalLayout_4->addWidget(alignTreeWidget);
 
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         glueHereButton = new QPushButton(frame);
@@ -105,7 +107,8 @@ public:
         glueHereAllButton->setObjectName(QString::fromUtf8("glueHereAllButton"));
         sizePolicy1.setHeightForWidth(glueHereAllButton->sizePolicy().hasHeightForWidth());
         glueHereAllButton->setSizePolicy(sizePolicy1);
-        glueHereAllButton->setMinimumSize(QSize(100, 25));
+        glueHereAllButton->setMinimumSize(QSize(0, 0));
+        glueHereAllButton->setMaximumSize(QSize(0, 0));
         glueHereAllButton->setFont(font1);
 
         verticalLayout_2->addWidget(glueHereAllButton);
@@ -114,7 +117,8 @@ public:
         manualAlignButton->setObjectName(QString::fromUtf8("manualAlignButton"));
         sizePolicy1.setHeightForWidth(manualAlignButton->sizePolicy().hasHeightForWidth());
         manualAlignButton->setSizePolicy(sizePolicy1);
-        manualAlignButton->setMinimumSize(QSize(100, 25));
+        manualAlignButton->setMinimumSize(QSize(0, 0));
+        manualAlignButton->setMaximumSize(QSize(0, 0));
         manualAlignButton->setFont(font1);
 
         verticalLayout_2->addWidget(manualAlignButton);
@@ -132,20 +136,18 @@ public:
         baseMeshButton->setObjectName(QString::fromUtf8("baseMeshButton"));
         sizePolicy1.setHeightForWidth(baseMeshButton->sizePolicy().hasHeightForWidth());
         baseMeshButton->setSizePolicy(sizePolicy1);
-        baseMeshButton->setMinimumSize(QSize(100, 25));
+        baseMeshButton->setMinimumSize(QSize(0, 0));
+        baseMeshButton->setMaximumSize(QSize(0, 0));
         baseMeshButton->setFont(font1);
 
         verticalLayout_2->addWidget(baseMeshButton);
-
-        spacerItem = new QSpacerItem(158, 5, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_2->addItem(spacerItem);
 
         recalcButton = new QPushButton(frame);
         recalcButton->setObjectName(QString::fromUtf8("recalcButton"));
         sizePolicy1.setHeightForWidth(recalcButton->sizePolicy().hasHeightForWidth());
         recalcButton->setSizePolicy(sizePolicy1);
-        recalcButton->setMinimumSize(QSize(100, 25));
+        recalcButton->setMinimumSize(QSize(0, 0));
+        recalcButton->setMaximumSize(QSize(0, 0));
         QFont font2;
         font2.setFamily(QString::fromUtf8("Arial"));
         font2.setPointSize(13);
@@ -155,21 +157,25 @@ public:
 
         icpButton = new QPushButton(frame);
         icpButton->setObjectName(QString::fromUtf8("icpButton"));
-        icpButton->setMinimumSize(QSize(100, 25));
+        icpButton->setMinimumSize(QSize(0, 0));
+        icpButton->setMaximumSize(QSize(0, 0));
         icpButton->setFont(font1);
 
         verticalLayout_2->addWidget(icpButton);
 
 
-        horizontalLayout->addLayout(verticalLayout_2);
+        verticalLayout_4->addLayout(verticalLayout_2);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         icpParamButton = new QPushButton(frame);
         icpParamButton->setObjectName(QString::fromUtf8("icpParamButton"));
         sizePolicy1.setHeightForWidth(icpParamButton->sizePolicy().hasHeightForWidth());
         icpParamButton->setSizePolicy(sizePolicy1);
-        icpParamButton->setMinimumSize(QSize(100, 25));
+        icpParamButton->setMinimumSize(QSize(0, 0));
+        icpParamButton->setMaximumSize(QSize(0, 0));
         icpParamButton->setFont(font1);
 
         verticalLayout->addWidget(icpParamButton);
@@ -178,7 +184,8 @@ public:
         icpParamCurrentButton->setObjectName(QString::fromUtf8("icpParamCurrentButton"));
         sizePolicy1.setHeightForWidth(icpParamCurrentButton->sizePolicy().hasHeightForWidth());
         icpParamCurrentButton->setSizePolicy(sizePolicy1);
-        icpParamCurrentButton->setMinimumSize(QSize(100, 25));
+        icpParamCurrentButton->setMinimumSize(QSize(0, 0));
+        icpParamCurrentButton->setMaximumSize(QSize(0, 0));
         icpParamCurrentButton->setFont(font2);
 
         verticalLayout->addWidget(icpParamCurrentButton);
@@ -187,7 +194,8 @@ public:
         meshTreeParamButton->setObjectName(QString::fromUtf8("meshTreeParamButton"));
         sizePolicy1.setHeightForWidth(meshTreeParamButton->sizePolicy().hasHeightForWidth());
         meshTreeParamButton->setSizePolicy(sizePolicy1);
-        meshTreeParamButton->setMinimumSize(QSize(100, 25));
+        meshTreeParamButton->setMinimumSize(QSize(0, 0));
+        meshTreeParamButton->setMaximumSize(QSize(0, 0));
         QFont font3;
         font3.setFamily(QString::fromUtf8("Arial"));
         font3.setPointSize(13);
@@ -197,15 +205,12 @@ public:
 
         verticalLayout->addWidget(meshTreeParamButton);
 
-        spacerItem1 = new QSpacerItem(20, 10, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout->addItem(spacerItem1);
-
         badArcButton = new QPushButton(frame);
         badArcButton->setObjectName(QString::fromUtf8("badArcButton"));
         sizePolicy1.setHeightForWidth(badArcButton->sizePolicy().hasHeightForWidth());
         badArcButton->setSizePolicy(sizePolicy1);
-        badArcButton->setMinimumSize(QSize(100, 25));
+        badArcButton->setMinimumSize(QSize(0, 0));
+        badArcButton->setMaximumSize(QSize(0, 0));
         badArcButton->setFont(font1);
 
         verticalLayout->addWidget(badArcButton);
@@ -214,19 +219,22 @@ public:
         hideRevealButton->setObjectName(QString::fromUtf8("hideRevealButton"));
         sizePolicy1.setHeightForWidth(hideRevealButton->sizePolicy().hasHeightForWidth());
         hideRevealButton->setSizePolicy(sizePolicy1);
-        hideRevealButton->setMinimumSize(QSize(100, 25));
+        hideRevealButton->setMinimumSize(QSize(0, 0));
+        hideRevealButton->setMaximumSize(QSize(0, 0));
         hideRevealButton->setFont(font1);
 
         verticalLayout->addWidget(hideRevealButton);
 
         falseColorCB = new QCheckBox(frame);
         falseColorCB->setObjectName(QString::fromUtf8("falseColorCB"));
+        falseColorCB->setMaximumSize(QSize(0, 0));
         falseColorCB->setChecked(true);
 
         verticalLayout->addWidget(falseColorCB);
 
         pointRenderingCB = new QCheckBox(frame);
         pointRenderingCB->setObjectName(QString::fromUtf8("pointRenderingCB"));
+        pointRenderingCB->setMaximumSize(QSize(0, 0));
 
         verticalLayout->addWidget(pointRenderingCB);
 
@@ -243,6 +251,7 @@ public:
         sizePolicy2.setVerticalStretch(1);
         sizePolicy2.setHeightForWidth(logTextEdit->sizePolicy().hasHeightForWidth());
         logTextEdit->setSizePolicy(sizePolicy2);
+        logTextEdit->setMaximumSize(QSize(0, 0));
         QFont font4;
         font4.setFamily(QString::fromUtf8("Courier"));
         font4.setPointSize(9);
@@ -263,13 +272,14 @@ public:
     void retranslateUi(QWidget *alignDialog)
     {
         alignDialog->setWindowTitle(QApplication::translate("alignDialog", "Align Tool", 0, QApplication::UnicodeUTF8));
+        pushButton->setText(QApplication::translate("alignDialog", "PushButton", 0, QApplication::UnicodeUTF8));
         QTreeWidgetItem *___qtreewidgetitem = alignTreeWidget->headerItem();
         ___qtreewidgetitem->setText(3, QApplication::translate("alignDialog", "4", 0, QApplication::UnicodeUTF8));
         ___qtreewidgetitem->setText(2, QApplication::translate("alignDialog", "3", 0, QApplication::UnicodeUTF8));
         ___qtreewidgetitem->setText(1, QApplication::translate("alignDialog", "2", 0, QApplication::UnicodeUTF8));
         ___qtreewidgetitem->setText(0, QApplication::translate("alignDialog", "1", 0, QApplication::UnicodeUTF8));
         glueHereButton->setText(QApplication::translate("alignDialog", "Glue Here Mesh", 0, QApplication::UnicodeUTF8));
-        glueHereAllButton->setText(QApplication::translate("alignDialog", "Glue Here Visible Meshes", 0, QApplication::UnicodeUTF8));
+        glueHereAllButton->setText(QString());
         manualAlignButton->setText(QApplication::translate("alignDialog", "Manual Rough Glueing", 0, QApplication::UnicodeUTF8));
         pointBasedAlignButton->setText(QApplication::translate("alignDialog", "Point Based Glueing", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_TOOLTIP

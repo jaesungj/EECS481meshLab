@@ -101,9 +101,14 @@ PickedPointTreeWidgetItem::PickedPointTreeWidgetItem(
 		vcg::Point3f &intputPoint, CMeshO::FaceType::NormalType &faceNormal,
 		QString name, bool _active) : QTreeWidgetItem(1001)
 {
-	//name
-    name.setNum(pointCount);
-	setName(name);
+    //name
+    if(name != NULL){
+        name.setNum(pointCount);
+        setName(name);
+    }
+    else{
+        setName(QString::fromStdString(""));
+    }
     pointCount++;
 	active = _active;
 	//would set the checkbox but qt doesnt allow a way to do this in the constructor
@@ -1007,8 +1012,8 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
                 circumference += sqrt(pow(diffIntVec.X(),2) + pow(diffIntVec.Y(),2) + pow(diffIntVec.Z(),2));
 //                std::cout << diffIntVec.X() << " " << diffIntVec.Y() << " " << diffIntVec.Z() << std::endl;
 
-                PickedPoint I1Point = PickedPoint(QString::fromStdString("newPoint"), I1, true);
-                PickedPoint I2Point = PickedPoint(QString::fromStdString("newPoint"), I2, true);
+                PickedPoint I1Point = PickedPoint(NULL, I1, true);
+                PickedPoint I2Point = PickedPoint(NULL, I2, true);
                 circumPoints.push_back(I1Point);
                 circumPoints.push_back(I2Point);
                 //addPoint(selectedPoints->at(0)->point,selectedPoints->at(0)->name, true);
@@ -1024,7 +1029,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
     redrawPoints();
    // drawPickedPoints(getPickedPointTreeWidgetItemVector(), meshModel->cm.bbox, painter);
 
-   // ui.showCirumference->setText(QString::number(circumference));
+    ui.showCirumference->setText(QString::number(circumference));
 
 
 }
