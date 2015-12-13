@@ -989,7 +989,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
             for(int i = 0; i < 3; i++) {
                 Point3f p0 = (*(vi + (i%3))).P();
 //                 std::cout << p0.X() <<" " << p0.Y()<< " " <<  p0.Z()<< std::endl;
-                Point3f p1 = (*(vi + (i+1%3))).P();
+                Point3f p1 = (*(vi + ((i+1)%3))).P();
                 Point3f diffVec = p1 - p0;
                 double denominator = normal.dot(diffVec);
                 if (denominator != 0) {
@@ -1005,7 +1005,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
                     }
                 }
             }
-            if (I1 != failure and I2 != failure) {
+            if (I1 != failure && I2 != failure) {
                 Point3f diffIntVec = I2 - I1;
 //                                 std::cout << "I1 " << I1.X() <<" " << I1.Y()<< " " <<  I1.Z()<< std::endl;
 //                                 std::cout << "I2 " << I2.X() <<" " << I2.Y()<< " " <<  I2.Z()<< std::endl;
@@ -1033,4 +1033,81 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
    // drawPickedPoints(getPickedPointTreeWidgetItemVector(), meshModel->cm.bbox, painter);
 }
 
+Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, float x, float y, float z) {
+    Point3f result = ref;
+    float nonCompareValue = 50;
+    float xbounds = x;
+    float ybounds = y;
+    float zbounds = z;
+    for(CMeshO::VertexIterator vi = mm->cm.vert.begin(); vi != mm->cm.vert.end(); vi++) {
+        Point3f curr = (*vi).P();
+        if (((curr[0] >= (ref[0] - xbounds)) && (curr[0] <= (ref[0] + xbounds))) &&
+            ((curr[1] >= (ref[1] - ybounds)) && (curr[1] <= (ref[1] + ybounds))) &&
+            ((curr[2] >= (ref[2] - zbounds)) && (curr[2] <= (ref[2] + zbounds)))){
+            if (isMax) {
+                if (curr[axis] > result[axis]) {
+                    result = curr;
+                }
+            } else {
+                if (curr[axis] < result[axis]) {
+                    result = curr;
+                }
+            }
+        }
+    }
+    return result;
+}
 
+void PickPointsDialog::on_calculateAnkle_clicked()
+{
+    PickedPoints* pickedPoints = getPickedPoints();
+    std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
+    if(getActivatedPoints->size() == 2){
+         Point3f pickedPoint1 = getActivatedPoints->at(0);
+         Point3f pickedPoint2 = getActivatedPoints->at(1);
+         Point3f resultLeft;
+         Point3f resultRight;
+         if (pickedPoint2.Y() > pickedPoint1.Y()){
+             Point3f tmp = pickedPoint2;
+             pickedPoint2 = pickedPoint1;
+             pickedPoint1 = tmp;
+         }
+         resultLeft = findLocalExtrema(meshModel,pickedPoint1, 1, true, 20, 20, 20);
+         resultRight = findLocalExtrema(meshModel,pickedPoint2, 1, false, 20, 20, 20);
+         PickedPoint I1Point = PickedPoint(NULL, resultLeft, true);
+         PickedPoint I2Point = PickedPoint(NULL, resultRight, true);
+         addPoint(I1Point.point,I1Point.name,  true);
+         addPoint(I2Point.point,I2Point.name,  true);
+         double distance = resultLeft.Y() - resultRight.Y();
+         ui.showAnkleDistance->setText(QString::number(distance));
+    }
+}
+
+void PickPointsDialog::on_footLength_clicked()
+{
+    Point3f maxPoint = Point3f(0,0,0);
+     for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi ++) {
+         if (vi->P().X() > maxPoint.X()){
+             maxPoint = vi->P();
+         }
+     }
+     Point3f minPoint = findLocalExtrema(meshModel,maxPoint,0,false, 300,120,10);
+     PickedPoint I1Point = PickedPoint(NULL, maxPoint, true);
+     PickedPoint I2Point = PickedPoint(NULL, minPoint, true);
+     addPoint(I1Point.point,I1Point.name,  true);
+     addPoint(I2Point.point,I2Point.name,  true);
+     double distance = maxPoint.X() - minPoint.X();
+     ui.showFootLength->setText(QString::number(distance));
+}
+
+void PickPointsDialog::on_legLength_clicked()
+{
+    Point3f maxPoint = Point3f(0,0,0);
+     for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi ++) {
+         if (vi->P().Z() > maxPoint.Z()){
+             maxPoint = vi->P();
+         }
+     }
+     double length = maxPoint.Z();
+     ui.showLegLength->setText(QString::number(length));
+}
