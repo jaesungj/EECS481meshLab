@@ -975,7 +975,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
     std::vector<PickedPoint> circumPoints;
     int pointCount = 0;
     double circumference = 0;
-    if(getActivatedPoints->size() >= 1){
+    if(getActivatedPoints->size() == 1){
         for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi += 3) {
             Point3f pickedPoint = getActivatedPoints->back();
 
@@ -1021,17 +1021,16 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
           }
 
         }
+        for(int i=0; i<circumPoints.size();i+= 50){
+             addPoint(circumPoints[i].point,circumPoints[i].name,  true);
+        }
+        redrawPoints();
+         ui.showCirumference->setText(QString::number(circumference));
+    }else{
+        QMessageBox::information(this,  "MeshLab", "Please pick up exactly one point to calculate!",QMessageBox::Ok);
+    }
 
-    }
-    for(int i=0; i<circumPoints.size();i++){
-         addPoint(circumPoints[i].point,circumPoints[i].name,  true);
-    }
-    redrawPoints();
    // drawPickedPoints(getPickedPointTreeWidgetItemVector(), meshModel->cm.bbox, painter);
-
-    ui.showCirumference->setText(QString::number(circumference));
-
-
 }
 
 
