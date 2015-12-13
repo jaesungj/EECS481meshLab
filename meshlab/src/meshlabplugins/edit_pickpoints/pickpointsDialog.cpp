@@ -1080,6 +1080,8 @@ void PickPointsDialog::on_calculateAnkle_clicked()
          addPoint(I2Point.point,I2Point.name,  true);
          double distance = resultLeft.Y() - resultRight.Y();
          ui.showAnkleDistance->setText(QString::number(distance));
+    }else {
+        QMessageBox::information(this,  "MeshLab", "Please pick up exactly two points to calculate!",QMessageBox::Ok);
     }
 }
 
