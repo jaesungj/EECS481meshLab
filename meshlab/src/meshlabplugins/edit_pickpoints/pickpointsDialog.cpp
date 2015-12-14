@@ -923,8 +923,7 @@ void PickPointsDialog::undo()
 	}
 }
 
-//eecs481
-
+//EECS481
 void PickPointsDialog::on_calculateDistance_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
@@ -956,22 +955,25 @@ void PickPointsDialog::on_calculateDistance_clicked()
     ui.showDistance->setText(QString::number(distance));
 }
 
+//EECS481
 void PickPointsDialog::on_pickPointModeRadioButton_clicked()
 {
     ui.Direction->setText("Right click on model to pick two points and press calcualte distance to measure distance bewteen the two points");
 }
 
+//EECS481
 void PickPointsDialog::on_movePointRadioButton_clicked()
 {
-    ui.Direction->setText("Right click on model to move one point to anohter");
+    ui.Direction->setText("Right click on model to move one point to another");
 }
 
+//EECS481
 void PickPointsDialog::on_selectPointRadioButton_clicked()
 {
     ui.Direction->setText("Right click on model to select point");
 }
 
-
+//EECS481
 void PickPointsDialog::on_CalculateCirumference_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
@@ -1029,6 +1031,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
 
 }
 
+//EECS481
 Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, float x, float y, float z) {
     Point3f result = ref;
     float nonCompareValue = 50;
@@ -1054,6 +1057,7 @@ Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, floa
     return result;
 }
 
+//EECS481
 void PickPointsDialog::on_calculateAnkle_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
@@ -1081,6 +1085,7 @@ void PickPointsDialog::on_calculateAnkle_clicked()
     }
 }
 
+//ECS481
 void PickPointsDialog::on_footLength_clicked()
 {
     Point3f maxPoint = Point3f(0,0,0);
@@ -1098,6 +1103,7 @@ void PickPointsDialog::on_footLength_clicked()
      ui.showFootLength->setText(QString::number(distance*this->scale));
 }
 
+//EECS481
 void PickPointsDialog::on_legLength_clicked()
 {
     Point3f maxPoint = Point3f(0,0,0);
@@ -1110,6 +1116,7 @@ void PickPointsDialog::on_legLength_clicked()
      ui.showLegLength->setText(QString::number(length*this->scale));
 }
 
+//EECS481
 void PickPointsDialog::on_pushButton_2_clicked()
 {
    QString length = ui.footLengthValue->toPlainText();
@@ -1126,5 +1133,4 @@ void PickPointsDialog::on_pushButton_2_clicked()
     QString message = "Scale value of the model set to ";
     message.append(QString::number(this->scale));
     ui.textResult->setText(message);
-
 }
