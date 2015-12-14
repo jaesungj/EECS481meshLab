@@ -299,7 +299,7 @@ void PickPointsDialog::addMoveSelectPoint(Point3f point, CMeshO::FaceType::Norma
 			} else
 			{
 				//if we just picked the last point go into move mode
-				toggleMoveMode(true);
+                //toggleMoveMode(true);
 			}
 		} else {
 			//use a number as the default name
@@ -709,7 +709,8 @@ void PickPointsDialog::togglePickMode(bool checked){
 	}
 }
 
-/*void PickPointsDialog::toggleMoveMode(bool checked)
+/*
+void PickPointsDialog::toggleMoveMode(bool checked)
 {
 	if(checked)
 	{
@@ -976,7 +977,7 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
     PickedPoints* pickedPoints = getPickedPoints();
     std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
     std::vector<PickedPoint> circumPoints;
-    int pointCount = 0;
+   // int pointCount = 0;
     double circumference = 0;
     if(getActivatedPoints->size() == 1){
         Point3f pickedPoint = getActivatedPoints->back();
