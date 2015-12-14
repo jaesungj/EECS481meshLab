@@ -28,10 +28,10 @@ EditHoleFactory::EditHoleFactory()
 {
   editHole = new QAction(QIcon(":/images/hole_filler.png"),"Fill Hole", this);
 	
-	actionList << editHole;
+	//actionList << editHole;
 	
-	foreach(QAction *editAction, actionList)
-		editAction->setCheckable(true); 	
+	//foreach(QAction *editAction, actionList)
+	//	editAction->setCheckable(true); 	
 }
 	
 //gets a list of actions available from this plugin
