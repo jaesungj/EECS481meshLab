@@ -207,7 +207,10 @@ PickPointsDialog::PickPointsDialog(EditPickPointsPlugin *plugin,
 	QPoint p=parent->mapToGlobal(QPoint(0,0));
 	this->setFloating(true);
 	this->setGeometry(p.x()+(parent->width()-width()),p.y()+40,width(),height() );
-
+    this->scale = 1;
+    QString message = "Scale value of the model set to ";
+    message.append(QString::number(this->scale));
+    ui.textResult->setText(message);
 	//now stuff specific to pick points
 	QStringList headerNames;
 	headerNames << "Point Name" << "X" << "Y" << "Z" << "active";
@@ -296,7 +299,7 @@ void PickPointsDialog::addMoveSelectPoint(Point3f point, CMeshO::FaceType::Norma
 			} else
 			{
 				//if we just picked the last point go into move mode
-				toggleMoveMode(true);
+                //toggleMoveMode(true);
 			}
 		} else {
 			//use a number as the default name
@@ -706,7 +709,8 @@ void PickPointsDialog::togglePickMode(bool checked){
 	}
 }
 
-/*void PickPointsDialog::toggleMoveMode(bool checked)
+/*
+void PickPointsDialog::toggleMoveMode(bool checked)
 {
 	if(checked)
 	{
@@ -973,29 +977,27 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
     PickedPoints* pickedPoints = getPickedPoints();
     std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
     std::vector<PickedPoint> circumPoints;
-    int pointCount = 0;
+   // int pointCount = 0;
     double circumference = 0;
     if(getActivatedPoints->size() == 1){
-        for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi += 3) {
-            Point3f pickedPoint = getActivatedPoints->back();
+        Point3f pickedPoint = getActivatedPoints->back();
+        Point3f normal = Point3f(0, 0, 1);
+        Point3f random = Point3f(0, 0, pickedPoint.Z());
+        Point3f failure = Point3f(-10000000000, -10000000000, -10000000000);
 
-            Point3f normal = Point3f(0, 0, 1);
-            Point3f random = Point3f(0, 0, pickedPoint.Z());
-            Point3f failure = Point3f(-10000000000, -10000000000, -10000000000);
+        for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi += 3) {
             Point3f I1 = failure;
             Point3f I2 = failure;
 
-            //            std::cout << (*vi).P().X() <<" " << (*vi).P().Y()<< " " <<  (*vi).P().Z()<< std::endl;
             for(int i = 0; i < 3; i++) {
                 Point3f p0 = (*(vi + (i%3))).P();
-//                 std::cout << p0.X() <<" " << p0.Y()<< " " <<  p0.Z()<< std::endl;
                 Point3f p1 = (*(vi + ((i+1)%3))).P();
                 Point3f diffVec = p1 - p0;
                 double denominator = normal.dot(diffVec);
                 if (denominator != 0) {
                     Point3f randVec = random - p0;
                     double numerator = normal.dot(randVec);
-                    if (abs(numerator / denominator) <= 1) {
+                    if (((numerator / denominator) <= 1) && ((numerator/denominator) > 0)) {
                         if (I1 == failure) {
                             I1 = p0 + (diffVec * (numerator / denominator));
                         } else if (I2 == failure) {
@@ -1007,17 +1009,12 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
             }
             if (I1 != failure && I2 != failure) {
                 Point3f diffIntVec = I2 - I1;
-//                                 std::cout << "I1 " << I1.X() <<" " << I1.Y()<< " " <<  I1.Z()<< std::endl;
-//                                 std::cout << "I2 " << I2.X() <<" " << I2.Y()<< " " <<  I2.Z()<< std::endl;
-                circumference += sqrt(pow(diffIntVec.X(),2) + pow(diffIntVec.Y(),2) + pow(diffIntVec.Z(),2));
-//                std::cout << diffIntVec.X() << " " << diffIntVec.Y() << " " << diffIntVec.Z() << std::endl;
+                circumference += sqrt(pow(diffIntVec.X(),2) + pow(diffIntVec.Y(),2));
 
                 PickedPoint I1Point = PickedPoint(NULL, I1, true);
                 PickedPoint I2Point = PickedPoint(NULL, I2, true);
                 circumPoints.push_back(I1Point);
                 circumPoints.push_back(I2Point);
-                //addPoint(selectedPoints->at(0)->point,selectedPoints->at(0)->name, true);
-                //addPoint( selectedPoints->at(1)->point,selectedPoints->at(1)->name, true);
           }
 
         }
@@ -1025,12 +1022,11 @@ void PickPointsDialog::on_CalculateCirumference_clicked()
              addPoint(circumPoints[i].point,circumPoints[i].name,  true);
         }
         redrawPoints();
-         ui.showCirumference->setText(QString::number(circumference));
+         ui.showCirumference->setText(QString::number(circumference*this->scale));
     }else{
         QMessageBox::information(this,  "MeshLab", "Please pick up exactly one point to calculate!",QMessageBox::Ok);
     }
 
-   // drawPickedPoints(getPickedPointTreeWidgetItemVector(), meshModel->cm.bbox, painter);
 }
 
 Point3f findLocalExtrema(MeshModel * mm, Point3f ref, int axis, bool isMax, float x, float y, float z) {
@@ -1079,7 +1075,7 @@ void PickPointsDialog::on_calculateAnkle_clicked()
          addPoint(I1Point.point,I1Point.name,  true);
          addPoint(I2Point.point,I2Point.name,  true);
          double distance = resultLeft.Y() - resultRight.Y();
-         ui.showAnkleDistance->setText(QString::number(distance));
+         ui.showAnkleDistance->setText(QString::number(distance*this->scale));
     }else {
         QMessageBox::information(this,  "MeshLab", "Please pick up exactly two points to calculate!",QMessageBox::Ok);
     }
@@ -1099,7 +1095,7 @@ void PickPointsDialog::on_footLength_clicked()
      addPoint(I1Point.point,I1Point.name,  true);
      addPoint(I2Point.point,I2Point.name,  true);
      double distance = maxPoint.X() - minPoint.X();
-     ui.showFootLength->setText(QString::number(distance));
+     ui.showFootLength->setText(QString::number(distance*this->scale));
 }
 
 void PickPointsDialog::on_legLength_clicked()
@@ -1111,5 +1107,24 @@ void PickPointsDialog::on_legLength_clicked()
          }
      }
      double length = maxPoint.Z();
-     ui.showLegLength->setText(QString::number(length));
+     ui.showLegLength->setText(QString::number(length*this->scale));
+}
+
+void PickPointsDialog::on_pushButton_2_clicked()
+{
+   QString length = ui.footLengthValue->toPlainText();
+   double footLength = length.toDouble();
+   Point3f maxPoint = Point3f(0,0,0);
+    for(CMeshO::VertexIterator vi = meshModel->cm.vert.begin(); vi != meshModel->cm.vert.end(); vi ++) {
+        if (vi->P().X() > maxPoint.X()){
+            maxPoint = vi->P();
+        }
+    }
+    Point3f minPoint = findLocalExtrema(meshModel,maxPoint,0,false, 300,120,10);
+    double distance = maxPoint.X() - minPoint.X();
+    this->scale = footLength/distance;
+    QString message = "Scale value of the model set to ";
+    message.append(QString::number(this->scale));
+    ui.textResult->setText(message);
+
 }

@@ -130,6 +130,8 @@ public:
 	//set flag that says the next value will overwite one we may want to jump back to
 	void recordNextPointForUndo();
 
+    double scale;
+
 public slots:	
 	//redraw the points on the screen
 	void redrawPoints();
@@ -261,6 +263,7 @@ private slots:
     void on_calculateAnkle_clicked();
     void on_footLength_clicked();
     void on_legLength_clicked();
+    void on_pushButton_2_clicked();
 };
 
 //because QT is really dumb and TreeWidgetItems can recieve signals
