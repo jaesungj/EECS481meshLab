@@ -1135,6 +1135,7 @@ void PickPointsDialog::on_pushButton_2_clicked()
     ui.textResult->setText(message);
 }
 
+//EECS481
 void PickPointsDialog::on_calculateNormDiff_clicked()
 {
     PickedPoints* pickedPoints = getPickedPoints();
