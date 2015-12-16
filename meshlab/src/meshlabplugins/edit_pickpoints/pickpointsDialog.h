@@ -264,6 +264,7 @@ private slots:
     void on_footLength_clicked();
     void on_legLength_clicked();
     void on_pushButton_2_clicked();
+    void on_calculateNormDiff_clicked();
 };
 
 //because QT is really dumb and TreeWidgetItems can recieve signals

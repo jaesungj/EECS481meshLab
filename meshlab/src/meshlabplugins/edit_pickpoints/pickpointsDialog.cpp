@@ -1134,3 +1134,30 @@ void PickPointsDialog::on_pushButton_2_clicked()
     message.append(QString::number(this->scale));
     ui.textResult->setText(message);
 }
+
+void PickPointsDialog::on_calculateNormDiff_clicked()
+{
+    PickedPoints* pickedPoints = getPickedPoints();
+    std::vector<vcg::Point3f>* getActivatedPoints = pickedPoints->getPoint3fVector();
+    if(getActivatedPoints->size() == 1){
+        Point3f pickedPoint1 = getActivatedPoints->at(0);
+
+        int id = meshModel->id();
+        int idfind;
+        for(int i =0; i < meshModel->parent->meshList.size();i++){
+            if (id !=  meshModel->parent->meshList[i]->id()) idfind = meshModel->parent->meshList[i]->id();
+        }
+        double minDis = 999;
+        Point3f minPoint;
+        for(CMeshO::VertexIterator vi = meshModel->parent->meshList[idfind]->cm.vert.begin(); vi != meshModel->parent->meshList[idfind]->cm.vert.end(); vi ++) {
+            double distance = Distance(vi->P(), pickedPoint1);
+            if (distance < minDis){
+                minPoint = vi->P();
+                minDis = distance;
+            }
+        }
+        PickedPoint I2Point = PickedPoint(NULL, minPoint, true);
+        addPoint(I2Point.point,I2Point.name,  true);
+        ui.showNormDiff->setText(QString::number(minDis));
+    }
+}

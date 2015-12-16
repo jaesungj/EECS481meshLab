@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>671</width>
-    <height>536</height>
+    <height>583</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -54,44 +54,6 @@
          </property>
         </column>
        </widget>
-      </item>
-      <item row="10" column="0" colspan="3">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
-        <item>
-         <widget class="QPushButton" name="renamePointButton">
-          <property name="text">
-           <string>Rename Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removePointButton">
-          <property name="text">
-           <string>Remove Point</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="removeAllPointsButton">
-          <property name="text">
-           <string>Remove All Points</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="undoButton">
-          <property name="maximumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Undo last move</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
       </item>
       <item row="20" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_3">
@@ -168,6 +130,27 @@
           </property>
          </widget>
         </item>
+        <item>
+         <layout class="QHBoxLayout" name="calculateDiff">
+          <item>
+           <widget class="QTextBrowser" name="showNormDiff">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="calculateNormDiff">
+            <property name="text">
+             <string>Calculate Difference</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
        </layout>
       </item>
       <item row="2" column="0">
@@ -209,6 +192,36 @@ to measure distance bewteen the two points.
 The returned value will be in the same unit as the the input foot length unit</string>
         </property>
        </widget>
+      </item>
+      <item row="2" column="2">
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="loadPointsButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Load Points From File</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="saveButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Save</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
       <item row="13" column="0" colspan="3">
        <widget class="QGroupBox" name="groupBox_2">
@@ -331,13 +344,6 @@ The returned value will be in the same unit as the the input foot length unit</s
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
-          <property name="text">
-           <string>PushButton</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <widget class="QPushButton" name="CalculateCirumference">
           <property name="text">
            <string>Calculate Cirumference</string>
@@ -351,6 +357,19 @@ The returned value will be in the same unit as the the input foot length unit</s
         <property name="fieldGrowthPolicy">
          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
         </property>
+        <item row="1" column="0" colspan="2">
+         <widget class="QLabel" name="label_4">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>1000</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Please click on two points on the ankles of each side to compute the distance</string>
+          </property>
+         </widget>
+        </item>
         <item row="2" column="0">
          <widget class="QPushButton" name="calculateAnkle">
           <property name="text">
@@ -402,19 +421,6 @@ The returned value will be in the same unit as the the input foot length unit</s
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QLabel" name="label_4">
-          <property name="maximumSize">
-           <size>
-            <width>16777215</width>
-            <height>1000</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Please click on two points on the ankles of each side to compute the distance</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
       <item row="4" column="0">
@@ -451,36 +457,6 @@ The returned value will be in the same unit as the the input foot length unit</s
         </item>
        </layout>
       </item>
-      <item row="2" column="2">
-       <layout class="QVBoxLayout" name="verticalLayout">
-        <item>
-         <widget class="QPushButton" name="loadPointsButton">
-          <property name="maximumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Load Points From File</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="saveButton">
-          <property name="maximumSize">
-           <size>
-            <width>0</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>Save</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
       <item row="5" column="0">
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <item>
@@ -490,6 +466,51 @@ The returned value will be in the same unit as the the input foot length unit</s
             <width>16777215</width>
             <height>30</height>
            </size>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="10" column="0" colspan="3">
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>PushButton</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="renamePointButton">
+          <property name="text">
+           <string>Rename Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removePointButton">
+          <property name="text">
+           <string>Remove Point</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="removeAllPointsButton">
+          <property name="text">
+           <string>Remove All Points</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="undoButton">
+          <property name="maximumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Undo last move</string>
           </property>
          </widget>
         </item>
